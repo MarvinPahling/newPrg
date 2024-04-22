@@ -1,6 +1,7 @@
 package cardmaster;
 
 import cardmaster.Game.Mode;
+import cardmaster.cards.Card;
 
 /**
  * Hilfsklasse zur Interaktion mit dem Spiel.

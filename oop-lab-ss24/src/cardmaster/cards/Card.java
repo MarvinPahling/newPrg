@@ -1,6 +1,8 @@
 package cardmaster.cards;
 
+import cardmaster.cards.shop.IShopable;
 import cardmaster.Shape;
+
 
 /**
  * <h1>Punkte</h1> 0.5 Punkte für jeden nicht leeren Ablagestapel und 0.5 Punkte
@@ -22,22 +24,41 @@ import cardmaster.Shape;
  * 
  * 1.5 für nicht leere Stapel + 1.0 für die Formen Kreis und Stern.
  */
-public class Card {
+public abstract class Card implements IShopable {
+
+	private Shape shape;
+
 
 	public Card(Shape shape) {
+		this.shape = shape;
 	}
 
 	/**
 	 * Gibt die Form der Karte zurück.
 	 */
 	public Shape getShape() {
-		return null; // TODO
+		return this.shape;
 	}
 
 	/**
 	 * Gibt den Namen der Karte zurück. z.B.: Chance
 	 */
-	public String getName() {
-		return null; // TODO
+	public abstract String getName();
+
+	public static int countEqualShapes(Shape[] topShapes, Shape shape) {
+		int count = 0;
+		for (Shape s : topShapes) {
+			if (s == shape) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public abstract float calculateCredits(Shape[] topShapes);
+
+	@Override
+	public String toString() {
+		return this.getName() + " " + this.getShape().toString();
 	}
 }
