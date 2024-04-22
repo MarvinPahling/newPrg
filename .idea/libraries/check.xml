@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="check">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/oop-lab-ss24/jar/check.jar!/" />
+      <root url="jar://$PROJECT_DIR$/oop-lab-ss24/jar/hamcrest.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/oop-lab-ss24/jar/junit.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/oop-lab-ss24/jar/check.jar!/" />
+    </SOURCES>
+  </library>
+</component>
