@@ -9,7 +9,7 @@ import cardmaster.cards.Card;
 public class Player {
 
 	/**
-	 * Wird aufgerufen, wenn mit dem Shop interagiert wird. Gibt entweder den Index
+	 * Wird aufgerufen, wenn mit dem cardmaster.shop.Shop interagiert wird. Gibt entweder den Index
 	 * ({@code 0 .. game.getShopItemCount()} des zu kaufenden Items zurück oder eine
 	 * negative Zahl, wenn nichts weiter gekauft werden soll.
 	 *

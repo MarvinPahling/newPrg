@@ -42,7 +42,7 @@ public class TestShopUpgrades {
 		assertShopHasShopUpgrade(game, true);
 		buyCard(game, "additional stack card upgrade", ADDITIONAL_STACK); // Kauft einen zusätzlichen Ablagestapel
 		buyCard(game, "additional hand card upgrade", ADDITIONAL_HAND_CARD); // Kauft eine zusätzliche Handkarte
-		buyCard(game, "additional shop item upgrade", ADDITIONAL_SHOP); // Kauft eine zusätzliche Karte im Shop
+		buyCard(game, "additional shop item upgrade", ADDITIONAL_SHOP); // Kauft eine zusätzliche Karte im cardmaster.shop.Shop
 		// Können nur ein mal pro Runde gekauft werden.
 		assertShopHasAdditionalStack(game, false);
 		assertShopHasAdditionalHandCard(game, false);
@@ -229,7 +229,7 @@ public class TestShopUpgrades {
 	}
 
 	/**
-	 * Stellt sicher, dass der Shop ein Upgrade für einen zusätzlichen Ablagestapel
+	 * Stellt sicher, dass der cardmaster.shop.Shop ein Upgrade für einen zusätzlichen Ablagestapel
 	 * hat (<code>present
 	 * == true</code>) oder nicht (<code>present == false</code>).
 	 * <p>
@@ -245,7 +245,7 @@ public class TestShopUpgrades {
 	}
 
 	/**
-	 * Stellt sicher, dass der Shop ein Upgrade für eine zusätzliche Handkarte hat
+	 * Stellt sicher, dass der cardmaster.shop.Shop ein Upgrade für eine zusätzliche Handkarte hat
 	 * (<code>present ==
 	 * true</code>) oder nicht (<code>present == false</code>).
 	 * <p>
@@ -261,7 +261,7 @@ public class TestShopUpgrades {
 	}
 
 	/**
-	 * Stellt sicher, dass der Shop ein Upgrade für eine zusätzliche Karte im Shop
+	 * Stellt sicher, dass der cardmaster.shop.Shop ein Upgrade für eine zusätzliche Karte im cardmaster.shop.Shop
 	 * hat (<code>present
 	 * == true</code>) oder nicht (<code>present == false</code>).
 	 * <p>
@@ -277,7 +277,7 @@ public class TestShopUpgrades {
 	}
 
 	/**
-	 * Stellt sicher, dass es im Shop einen Gegenstand gibt, auf dessen Beschreibung
+	 * Stellt sicher, dass es im cardmaster.shop.Shop einen Gegenstand gibt, auf dessen Beschreibung
 	 * das Prädikat zutrifft.
 	 */
 	public void assertShopHas(Game game, String msg, Predicate<String> additionalHandCard) {
@@ -286,17 +286,17 @@ public class TestShopUpgrades {
 				return;
 			}
 		}
-		fail("Shop did not contain " + msg);
+		fail("cardmaster.shop.Shop did not contain " + msg);
 	}
 
 	/**
-	 * Stellt sicher, dass es im Shop keinen Gegenstand gibt, auf dessen
+	 * Stellt sicher, dass es im cardmaster.shop.Shop keinen Gegenstand gibt, auf dessen
 	 * Beschreibung das Prädikat zutrifft.
 	 */
 	public void assertShopHasNot(Game game, String msg, Predicate<String> additionalHandCard) {
 		for (int i = 0; i < game.getShopItemCount(); i++) {
 			if (additionalHandCard.test(game.getShopItemDescription(i))) {
-				fail("Shop did contain " + msg);
+				fail("cardmaster.shop.Shop did contain " + msg);
 			}
 		}
 	}

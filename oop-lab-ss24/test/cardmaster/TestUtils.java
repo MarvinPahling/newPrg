@@ -125,7 +125,7 @@ public class TestUtils {
 	 * Versuchen wird aufgegeben. Dann liegt höchstwahrscheinlich ein Fehler bei der
 	 * Spielerzeugung vor.
 	 * <p>
-	 * Die Karten im Shop werden nacheinander durchgearbeitet und dem ersten
+	 * Die Karten im cardmaster.shop.Shop werden nacheinander durchgearbeitet und dem ersten
 	 * Prädikat zugeordnet, dass auf sie zutrifft und gekauft. Das Prädikat wird für
 	 * spätere Karten nicht mehr verwendet.
 	 *
@@ -180,7 +180,7 @@ public class TestUtils {
 	 * Versuchen wird aufgegeben. Dann liegt höchstwahrscheinlich ein Fehler bei der
 	 * Spielerzeugung vor.
 	 * <p>
-	 * Die Karten im Shop werden nacheinander durchgearbeitet und dem ersten
+	 * Die Karten im cardmaster.shop.Shop werden nacheinander durchgearbeitet und dem ersten
 	 * Prädikat zugeordnet, dass auf sie zutrifft und gekauft. Das Prädikat wird für
 	 * spätere Karten nicht mehr verwendet.
 	 *
@@ -206,7 +206,7 @@ public class TestUtils {
 	 * Versuchen wird aufgegeben. Dann liegt höchstwahrscheinlich ein Fehler bei der
 	 * Spielerzeugung vor.
 	 * <p>
-	 * Die Karten im Shop werden nacheinander durchgearbeitet und dem ersten
+	 * Die Karten im cardmaster.shop.Shop werden nacheinander durchgearbeitet und dem ersten
 	 * Prädikat zugeordnet, dass auf sie zutrifft und gekauft, sofern
 	 * <code>buy == true</code> ist. Das Prädikat wird für spätere Karten nicht mehr
 	 * verwendet.
@@ -268,7 +268,7 @@ public class TestUtils {
 	 * Versuchen wird aufgegeben. Dann liegt höchstwahrscheinlich ein Fehler bei der
 	 * Spielerzeugung vor.
 	 * <p>
-	 * Die Karten im Shop werden nacheinander durchgearbeitet und dem ersten
+	 * Die Karten im cardmaster.shop.Shop werden nacheinander durchgearbeitet und dem ersten
 	 * Prädikat zugeordnet, dass auf sie zutrifft und gekauft. Das Prädikat wird für
 	 * spätere Karten nicht mehr verwendet.
 	 *
@@ -325,7 +325,7 @@ public class TestUtils {
 	}
 
 	/**
-	 * Kauft alle verbleibenden Karten im Shop. Kann eine Karte nicht gekauft
+	 * Kauft alle verbleibenden Karten im cardmaster.shop.Shop. Kann eine Karte nicht gekauft
 	 * werden, wird das ignoriert.
 	 * <p>
 	 * Das Spiel muss im Modus {@link Mode#SHOPPING} sein.
@@ -340,7 +340,7 @@ public class TestUtils {
 	}
 
 	/**
-	 * Kauft alle bis auf eine der verbleibenden Karten im Shop. Kann eine Karte
+	 * Kauft alle bis auf eine der verbleibenden Karten im cardmaster.shop.Shop. Kann eine Karte
 	 * nicht gekauft werden, wird das ignoriert. Ebenso wie wenn es gar keine Karte
 	 * mehr gibt.
 	 * <p>

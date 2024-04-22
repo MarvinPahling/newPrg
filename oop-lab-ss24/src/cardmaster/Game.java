@@ -1,6 +1,11 @@
 package cardmaster;
 
 import cardmaster.cards.Card;
+import cardmaster.collections.AlgoArrayList;
+import cardmaster.piles.DiscardPile;
+import cardmaster.piles.DrawPile;
+import cardmaster.piles.Hand;
+import cardmaster.shop.Shop;
 
 /**
  * Klasse für die Durchführung eines Spiels. Ein neues Spiel beginnt in Runde 1
@@ -14,10 +19,24 @@ import cardmaster.cards.Card;
  * sofern möglich. Wurde die letzte Karte aus der Hand gelegt, wird entweder,
  * falls das die letzte Runde war, in den End-Modus ({@link Mode#END})
  * gewechselt oder zurück in den Shopping-Modus. Beim Starten des Shopping-Modus
- * wird der Shop mit komplett zufälligen neuen Gegenständen gefüllt. Am Anfang
- * passen fünf Gegenstände in den Shop.
+ * wird der cardmaster.shop.Shop mit komplett zufälligen neuen Gegenständen gefüllt. Am Anfang
+ * passen fünf Gegenstände in den cardmaster.shop.Shop.
  */
 public class Game {
+
+
+	private Hand hand = new Hand();
+	private DrawPile drawPile = new DrawPile();
+	private AlgoArrayList<DiscardPile> discardPiles = new AlgoArrayList<>();
+
+	private Inventory inventory;
+	private Shop shop;
+	private Mode mode;
+	private int roundsLeft;
+
+
+
+
 
 	/**
 	 * Erzeugt ein neues Spiel.
@@ -54,14 +73,14 @@ public class Game {
 	// Methoden für den Shopping-Modus
 
 	/**
-	 * Gibt zurück, ob der Shop leer gekauft wurde.
+	 * Gibt zurück, ob der cardmaster.shop.Shop leer gekauft wurde.
 	 */
 	public boolean isShopEmpty() {
 		return false; // TODO
 	}
 
 	/**
-	 * Gibt die Anzahl der noch im Shop verfügbaren Gegenstände an.
+	 * Gibt die Anzahl der noch im cardmaster.shop.Shop verfügbaren Gegenstände an.
 	 */
 	public int getShopItemCount() {
 		return 0; // TODO
@@ -117,7 +136,7 @@ public class Game {
 	}
 
 	/**
-	 * Beendet die Shop-Interaktion und wechselt in den Playing-Modus. Wurde noch
+	 * Beendet die cardmaster.shop.Shop-Interaktion und wechselt in den Playing-Modus. Wurde noch
 	 * nie eine Karte gekauft, passiert nichts, da mindestens eine Karte fürs
 	 * Spielen notwendig ist.
 	 */

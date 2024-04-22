@@ -35,7 +35,7 @@ public class FactoryTestUtils {
 	public static final Predicate<String> ADDITIONAL_HAND_CARD = containsIgnoreCasePredicate("hand");
 	/**
 	 * Ein Prädikat für den Beschreibungstext um die Kartenauswahl ab der nächsten
-	 * Runde im Shop zu vergrößern. Muss "shop" beinhalten. Unterschiede
+	 * Runde im cardmaster.shop.Shop zu vergrößern. Muss "shop" beinhalten. Unterschiede
 	 * hinsichtlich Groß- und Kleinschreibung werden ignoriert.
 	 */
 	public static final Predicate<String> ADDITIONAL_SHOP = containsIgnoreCasePredicate("shop");
@@ -159,7 +159,7 @@ public class FactoryTestUtils {
 						}
 					}
 					if (!stackCountIncreaseOffered) {
-						fail("Shop did not have an item to add an additional stack. This test requires this to be implemented.");
+						fail("cardmaster.shop.Shop did not have an item to add an additional stack. This test requires this to be implemented.");
 					}
 				}
 				if (remainingHandUpgrades > 0 && game.getShopItemCount() > 0) {
@@ -180,7 +180,7 @@ public class FactoryTestUtils {
 						}
 					}
 					if (!handSizeIncreaseOffered) {
-						fail("Shop did not have an item to upgrade hand size. This test requires this to be implemented.");
+						fail("cardmaster.shop.Shop did not have an item to upgrade hand size. This test requires this to be implemented.");
 					}
 				}
 
@@ -211,7 +211,7 @@ public class FactoryTestUtils {
 	}
 
 	/**
-	 * Ein Prädikat für den Beschreibungstext, den die Karte im Shop hätte. Der Name
+	 * Ein Prädikat für den Beschreibungstext, den die Karte im cardmaster.shop.Shop hätte. Der Name
 	 * und die Form der Karte müssen im Beschreibungstext vorkommen.
 	 */
 	public static Predicate<? super String> cardShopDescriptionPredicate(Card card) {

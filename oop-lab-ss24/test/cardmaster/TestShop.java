@@ -165,13 +165,13 @@ public class TestShop {
 
 			lastDescriptions.removeAll(shopDescriptions(game).keySet());
 			if (!lastDescriptions.isEmpty()) {
-				// Some item was available last round but is not available in this round. Shop
+				// Some item was available last round but is not available in this round. cardmaster.shop.Shop
 				// must be
 				// restocked entirely.
 				return;
 			}
 		}
-		fail("This is a probabilistic test! Shop items are refreshed every round not just restocked. "
+		fail("This is a probabilistic test! cardmaster.shop.Shop items are refreshed every round not just restocked. "
 				+ "Within 1000 rounds there should be some item not available in the next round");
 	}
 
@@ -227,7 +227,7 @@ public class TestShop {
 	}
 
 	/**
-	 * Bestimmt die Anzahl an Karten im Shop.
+	 * Bestimmt die Anzahl an Karten im cardmaster.shop.Shop.
 	 */
 	private static int getCardInShopCount(Game game) {
 		var res = 0;
