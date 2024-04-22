@@ -17,21 +17,16 @@ public static CardFactory getDefaultFactory(){
     return defaultFactory;
 }
 
-//TODO TYPENNAMEN ALS ENUM
+
 public Card createRandom(){
     Random random = new Random();
-    String[] names = {"Chance", "Paar", "Tripel"};
-    String randomName = names[random.nextInt(names.length)];
+    CardType[] types = CardType.values();
+    CardType randomType = types[random.nextInt(types.length)];
 
-    return create(randomName, Shape.getRandomShape());
+    return randomType.createCard(Shape.getRandomShape());
 }
 public Card create(String name, Shape shape){
-    return switch (name) {
-        case "Chance" -> new ChanceCard(shape);
-        case "Paar" -> new PaarCard(shape);
-        case "Tripel" -> new TripelCard(shape);
-        default -> null;
-    };
+    return CardType.valueOf(name.toUpperCase()).createCard(shape);
 }
 
 }

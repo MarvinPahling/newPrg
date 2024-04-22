@@ -9,7 +9,7 @@ public class Inventory {
     private int UpgradeHandCount;
     private int UpgradeDiscardCount;
     private int UpgradeShopCount;
-    private int credits;
+    private float credits;
 
     public Inventory(){
         UpgradeHandCount = 0;
@@ -33,15 +33,25 @@ public class Inventory {
         cards.add(card);
     }
 
+    public void addShopUpgrade(){
+        UpgradeShopCount++;
+    }
+    public void addHandUpgrade(){
+        UpgradeHandCount++;
+    }
+    public void addDiscardUpgrade(){
+        UpgradeDiscardCount++;
+    }
+
     public AlgoArrayList<Card> getCards(){
         return cards;
     }
 
-    public void addCredits(int credits){
+    public void addCredits(float credits){
         this.credits += credits;
     }
 
-    public int getCredits(){
+    public float getCredits(){
         return credits;
     }
 
@@ -51,5 +61,17 @@ public class Inventory {
             return true;
         }
         return false;
+    }
+
+    public int getDiscardCounter() {
+        return UpgradeDiscardCount;
+    }
+
+    public int getHandCounter() {
+        return UpgradeHandCount;
+    }
+
+    public int getShopCounter() {
+        return UpgradeShopCount;
     }
 }

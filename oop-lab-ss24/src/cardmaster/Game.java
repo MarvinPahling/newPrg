@@ -27,12 +27,14 @@ public class Game {
 
 	private Hand hand = new Hand();
 	private DrawPile drawPile = new DrawPile();
-	private AlgoArrayList<DiscardPile> discardPiles = new AlgoArrayList<>();
+
+	private DiscardPileContainer discardPiles;
 
 	private Inventory inventory;
 	private Shop shop;
 	private Mode mode;
 	private int roundsLeft;
+	private CardFactory cardFactory;
 
 
 
@@ -44,7 +46,19 @@ public class Game {
 	 * @param maxRounds Anzahl der Runden. Muss mindestens {@code 1} sein.
 	 */
 	public Game(int maxRounds) {
-		// TODO
+		this.inventory = new Inventory();
+		this.shop = new Shop(inventory);
+		this.mode = Mode.SHOPPING;
+		this.roundsLeft = maxRounds;
+		this.discardPiles = new DiscardPileContainer(3);
+	}
+	public Game(int maxRounds, CardFactory cardFactory){
+		this.inventory = new Inventory();
+		this.shop = new Shop(inventory, cardFactory);
+		this.mode = Mode.SHOPPING;
+		this.roundsLeft = maxRounds;
+		this.discardPiles = new DiscardPileContainer(3);
+		this.cardFactory = cardFactory;
 	}
 
 	// Allgemein verwendbare Methoden.
@@ -53,21 +67,21 @@ public class Game {
 	 * Gibt den aktuellen Punktestand zurück.
 	 */
 	public double getCredits() {
-		return 0.0; // TODO
+		return inventory.getCredits();
 	}
 
 	/**
 	 * Gibt den aktuellen Modus zurück.
 	 */
 	public Mode getMode() {
-		return null; // TODO
+		return mode;
 	}
 
 	/**
 	 * Gibt die Anzahl an Ablagestapel zurück.
 	 */
 	public int getStacksCount() {
-		return 0; // TODO
+		return discardPiles.getSize();
 	}
 
 	// Methoden für den Shopping-Modus
@@ -76,14 +90,14 @@ public class Game {
 	 * Gibt zurück, ob der cardmaster.shop.Shop leer gekauft wurde.
 	 */
 	public boolean isShopEmpty() {
-		return false; // TODO
+		return shop.isEmpty();
 	}
 
 	/**
 	 * Gibt die Anzahl der noch im cardmaster.shop.Shop verfügbaren Gegenstände an.
 	 */
 	public int getShopItemCount() {
-		return 0; // TODO
+		return shop.getOfferCount();
 	}
 
 	/**
@@ -94,7 +108,7 @@ public class Game {
 	 *                      {@code [0, this.getShopItemCount())}.
 	 */
 	public String getShopItemDescription(int shopItemIndex) {
-		return null; // TODO
+		return shop.getDescription(shopItemIndex);
 	}
 
 	/**
@@ -104,7 +118,7 @@ public class Game {
 	 *                      {@code [0, this.getShopItemCount())}.
 	 */
 	public int getShopItemPrice(int shopItemIndex) {
-		return 0; // TODO
+		return shop.getPrice(shopItemIndex);
 	}
 
 	/**
@@ -121,7 +135,7 @@ public class Game {
 	 *         hingegen {@code false}.
 	 */
 	public boolean buy(int shopItemIndex) {
-		return false; // TODO
+		return shop.buy(shopItemIndex);
 	}
 
 	/**
@@ -132,7 +146,7 @@ public class Game {
 	 * Kartenkauf immer {@code true}.
 	 */
 	public boolean isDrawPileEmpty() {
-		return false; // TODO
+		return drawPile.isEmpty();
 	}
 
 	/**
@@ -141,7 +155,35 @@ public class Game {
 	 * Spielen notwendig ist.
 	 */
 	public void endShopping() {
-		// TODO
+		if (!inventory.getCards().isEmpty()) {
+			changeToPlay();
+		}
+	}
+
+	private void changeToPlay() {
+		this.mode = Mode.PLAYING;
+		this.discardPiles = new DiscardPileContainer(inventory.getMaxDiscardPiles());
+		AlgoArrayList<Card> cards = inventory.getCards();
+		for (Card c : cards) {
+			drawPile.addCard(c);
+		}
+		drawPile.shuffle();
+		for (int i = 0; i < inventory.getMaxHandCards(); i++) {
+			if(drawPile.isEmpty()){
+				break;
+			}
+			hand.addCard(drawPile.cards.pop());
+		}
+	}
+
+	private void changeToEnd() {
+		this.mode = Mode.END;
+	}
+
+	private void changeToShopping() {
+		roundsLeft--;
+		this.mode = Mode.SHOPPING;
+		this.shop = new Shop(inventory, cardFactory);
 	}
 
 	// Methoden für den Playing-Modus
@@ -150,7 +192,7 @@ public class Game {
 	 * Gibt zurück, wie viele Karten aktuell auf der Hand gehalten werden.
 	 */
 	public int getHandCardsCount() {
-		return 0; // TODO
+		return hand.getCount();
 	}
 
 	/**
@@ -160,7 +202,7 @@ public class Game {
 	 *                      {@code [0, this.getHandCardsCount())}.
 	 */
 	public Card getHandCard(int handCardIndex) {
-		return null; // TODO
+		return hand.getCard(handCardIndex);
 	}
 
 	/**
@@ -175,7 +217,26 @@ public class Game {
 	 * @param stackIndex index aus dem Intervall {@code [0, this.getStacksCount())}.
 	 */
 	public void play(Card card, int stackIndex) {
-		// TODO
+
+		assert stackIndex >= 0 && stackIndex < getStacksCount() : "Invalid stack index";
+		assert hand.contains(card) : "Card not in hand";
+		discardPiles.get(stackIndex).addCard(card);
+		hand.removeCard(card);
+
+		inventory.addCredits(card.calculateCredits(getTopShapes()));
+
+		if(!isDrawPileEmpty()){
+			hand.addCard(drawPile.cards.pop());
+		}
+
+		if(hand.isEmpty()){
+			if(roundsLeft > 1){
+				changeToShopping();
+			}
+			else {
+				changeToEnd();
+			}
+		}
 	}
 
 	/**
@@ -184,7 +245,7 @@ public class Game {
 	 * {@code I} ist aus de Intervall {@code [0, this.getStacksCount())}.
 	 */
 	public Shape[] getTopShapes() {
-		return null; // TODO
+		return discardPiles.getTopShapes();
 	}
 
 	public enum Mode {

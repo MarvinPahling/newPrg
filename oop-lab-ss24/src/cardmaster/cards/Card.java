@@ -1,6 +1,5 @@
 package cardmaster.cards;
 
-import cardmaster.cards.shop.IShopable;
 import cardmaster.Shape;
 
 
@@ -24,7 +23,7 @@ import cardmaster.Shape;
  * 
  * 1.5 für nicht leere Stapel + 1.0 für die Formen Kreis und Stern.
  */
-public abstract class Card implements IShopable {
+public abstract class Card {
 
 	private Shape shape;
 
