@@ -11,10 +11,11 @@ public class Inventory {
     private int UpgradeShopCount;
     private float credits;
 
-    public Inventory(){
+    public Inventory(int credits){
         UpgradeHandCount = 0;
         UpgradeDiscardCount = 0;
         UpgradeShopCount = 0;
+        this.credits = credits;
     }
 
     public int getMaxShopCards(){

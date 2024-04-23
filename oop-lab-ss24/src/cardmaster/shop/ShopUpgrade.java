@@ -50,6 +50,11 @@ public enum ShopUpgrade{
         return name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
     //KEINE TOSTRING, WEIL WIR AHNUNG VON ENUMS HABEN
 
     public abstract int getPrice(Inventory inventory);

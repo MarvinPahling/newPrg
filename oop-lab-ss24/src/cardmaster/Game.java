@@ -31,7 +31,7 @@ public class Game {
 	private DiscardPileContainer discardPiles;
 
 	private Inventory inventory;
-	private Shop shop;
+	public Shop shop;
 	private Mode mode;
 	private int roundsLeft;
 	private CardFactory cardFactory;
@@ -46,14 +46,16 @@ public class Game {
 	 * @param maxRounds Anzahl der Runden. Muss mindestens {@code 1} sein.
 	 */
 	public Game(int maxRounds) {
-		this.inventory = new Inventory();
+		assert maxRounds >= 1 : "Invalid number of rounds";
+		this.inventory = new Inventory(10);
 		this.shop = new Shop(inventory);
 		this.mode = Mode.SHOPPING;
 		this.roundsLeft = maxRounds;
 		this.discardPiles = new DiscardPileContainer(3);
 	}
 	public Game(int maxRounds, CardFactory cardFactory){
-		this.inventory = new Inventory();
+		assert maxRounds >= 1 : "Invalid number of rounds";
+		this.inventory = new Inventory(10);
 		this.shop = new Shop(inventory, cardFactory);
 		this.mode = Mode.SHOPPING;
 		this.roundsLeft = maxRounds;
@@ -183,7 +185,13 @@ public class Game {
 	private void changeToShopping() {
 		roundsLeft--;
 		this.mode = Mode.SHOPPING;
-		this.shop = new Shop(inventory, cardFactory);
+		if(shop.isHoeppnefsShittyFirstSeriesGriefesEverything()){
+			this.shop = new Shop(inventory);
+		}
+		else {
+			this.shop = new Shop(inventory, cardFactory);
+		}
+
 	}
 
 	// Methoden für den Playing-Modus

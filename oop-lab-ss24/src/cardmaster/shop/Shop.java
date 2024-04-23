@@ -5,6 +5,7 @@ import cardmaster.CardType;
 import cardmaster.Inventory;
 import cardmaster.Shape;
 import cardmaster.cards.Card;
+import cardmaster.cards.ChanceCard;
 import cardmaster.collections.AlgoArrayList;
 
 import java.util.Random;
@@ -15,22 +16,25 @@ public class Shop {
     private AlgoArrayList<Offer> offers = new AlgoArrayList<>();
     private int maxCards;
     private Inventory inventory;
-    private CardFactory factory;
+    private CardFactory factory = CardFactory.getDefaultFactory();
+    private boolean hoeppnefsShittyFirstSeriesGriefesEverything;
 
     public Shop(Inventory inventory, CardFactory cardFactory){
         this.inventory = inventory;
         this.maxCards = inventory.getMaxShopCards();
-        this.factory = cardFactory;
+        hoeppnefsShittyFirstSeriesGriefesEverything = false;
         generateRandomOffers();
+        System.out.println(this.offers);
 
     }
     public Shop(Inventory inventory){
         this.inventory = inventory;
         this.maxCards = inventory.getMaxShopCards();
+        hoeppnefsShittyFirstSeriesGriefesEverything = true;
         generateChanceOffers();
     }
 
-    private void generateRandomOffers() {
+    public void generateRandomOffers() {
         int[] prices = calculatePrices(inventory.getCredits());
         int numberOfUpgrades = ShopUpgrade.values().length;
         int numberOfCards = maxCards;
@@ -38,7 +42,9 @@ public class Shop {
             offers.add(new Offer(ShopUpgrade.values()[i], prices[i], ItemType.UPGRADE));
         }
         for (int i = numberOfUpgrades; i < maxCards + numberOfUpgrades; i++) {
-            offers.add(new Offer(factory.createRandom(), prices[i], ItemType.CARD));
+            Offer offer = new Offer(factory.createRandom(), prices[i], ItemType.CARD);
+            System.out.println(offer);
+            offers.add(offer);
         }
     }
 
@@ -50,12 +56,12 @@ public class Shop {
             offers.add(new Offer(ShopUpgrade.values()[i], prices[i], ItemType.UPGRADE));
         }
         for (int i = numberOfUpgrades; i < maxCards + numberOfUpgrades; i++) {
-            offers.add(new Offer(factory.create(CardType.CHANCE.getName(), Shape.getRandomShape()), prices[i], ItemType.CARD));
+            offers.add(new Offer((new ChanceCard(Shape.getRandomShape())), prices[i], ItemType.CARD));
         }
     }
 
     public boolean isEmpty() {
-        return offers.getSize() - ShopUpgrade.values().length == 0;
+        return offers.isEmpty();
     }
 
     public int getOfferCount() {
@@ -104,10 +110,15 @@ public class Shop {
                 ShopUpgrade upgrade = (ShopUpgrade) offer.getItem();
                 upgrade.applyUpgrade(inventory);
             }
+            offers.remove(shopItemIndex);
             return true;
 
         }
         return false;
         //
+    }
+
+    public boolean isHoeppnefsShittyFirstSeriesGriefesEverything() {
+        return hoeppnefsShittyFirstSeriesGriefesEverything;
     }
 }

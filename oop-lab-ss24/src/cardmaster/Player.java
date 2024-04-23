@@ -3,6 +3,8 @@ package cardmaster;
 import cardmaster.Game.Mode;
 import cardmaster.cards.Card;
 
+import java.util.Scanner;
+
 /**
  * Hilfsklasse zur Interaktion mit dem Spiel.
  */

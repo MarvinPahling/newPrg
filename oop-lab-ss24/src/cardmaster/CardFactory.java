@@ -22,8 +22,9 @@ public Card createRandom(){
     Random random = new Random();
     CardType[] types = CardType.values();
     CardType randomType = types[random.nextInt(types.length)];
-
     return randomType.createCard(Shape.getRandomShape());
+
+
 }
 public Card create(String name, Shape shape){
     return CardType.valueOf(name.toUpperCase()).createCard(shape);
