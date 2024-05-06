@@ -2,6 +2,7 @@ package cardmaster;
 
 import cardmaster.cards.Card;
 import cardmaster.collections.AlgoArrayList;
+import cardmaster.exceptions.IllegalCallException;
 import cardmaster.piles.DiscardPile;
 import cardmaster.piles.DrawPile;
 import cardmaster.piles.Hand;
@@ -130,6 +131,12 @@ public class Game {
 	 *         hingegen {@code false}.
 	 */
 	public boolean buy(int shopItemIndex) {
+		if (shopItemIndex < 0 || shopItemIndex >= getShopItemCount()) {
+			throw new IndexOutOfBoundsException("shopItemIndex ist außerhalb des gültigen Bereichs");
+		}
+		if (mode != Mode.SHOPPING) {
+			throw new IllegalCallException("buy", mode, Mode.SHOPPING);
+		}
 		return shop.buy(shopItemIndex);
 	}
 
@@ -213,7 +220,12 @@ public class Game {
 	 * @param stackIndex index aus dem Intervall {@code [0, this.getStacksCount())}.
 	 */
 	public void play(Card card, int stackIndex) {
-
+		if (card == null) {
+			throw new NullPointerException("card darf nicht null sein");
+		}
+		if (mode != Mode.PLAYING) {
+			throw new IllegalCallException("play", mode, Mode.PLAYING);
+		}
 		assert stackIndex >= 0 && stackIndex < getStacksCount() : "Invalid stack index";
 		assert hand.contains(card) : "Card not in hand";
 		discardPiles.get(stackIndex).addCard(card);

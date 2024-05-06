@@ -22,7 +22,7 @@ public class KombiCard extends Card{
 
     @Override
     public String getName() {
-        return "";
+        return "Kombi";
     }
 
     @Override
