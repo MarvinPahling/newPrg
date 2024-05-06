@@ -61,12 +61,12 @@ public class FactoryTestUtils {
 		final List<Card> requiredCards = new ArrayList<>(cards.length + 1);
 		// Add some cards that are easy to play.
 		requiredCards.add(CardFactory.getDefaultFactory().create("Chance", Shape.CIRCLE));
-//    requiredCards.add(CardFactory.getDefaultFactory().create("Chance", Shape.STAR));
-//    requiredCards.add(CardFactory.getDefaultFactory().create("Chance", Shape.SQUARE));
+		//requiredCards.add(CardFactory.getDefaultFactory().create("Chance", Shape.STAR));
+		//requiredCards.add(CardFactory.getDefaultFactory().create("Chance", Shape.SQUARE));
 		final var additionalAmount = requiredCards.size();
 		requiredCards.addAll(Arrays.asList(cards));
 		additionalHandCards = Math.max(additionalHandCards, cards.length + additionalAmount - 4);
-
+		System.out.println(requiredCards);
 		game: for (int i = 0; i < GAME_CREATION_LIMIT; i++) {
 			int remainingStacksToAdd = additionalStacks;
 			int remainingHandUpgrades = additionalHandCards;
@@ -84,6 +84,7 @@ public class FactoryTestUtils {
 				public Card createRandom() {
 					factoryUsed[0] = true; // Spürt auf, ob die Fabrik überhaupt verwendet wird.
 					if (factoryRemainingCardsIndex[0] >= remainingCardsToAdd.size()) {
+						System.out.println("1");
 						return CardFactory.getDefaultFactory().createRandom();
 					}
 					if (factoryUsed[1]) {

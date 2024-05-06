@@ -12,4 +12,5 @@ public enum Shape {
         int rnd = random.nextInt(values().length);
         return values()[rnd];
     }
+
 }

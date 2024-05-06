@@ -15,6 +15,7 @@ public class ChanceCardFactory extends CardFactory {
 
     @Override
     public Card createRandom(){
+        System.out.println("Chance card factory is cooking");
         Random random = new Random();
         return super.create(CardType.CHANCE.getName(), Shape.getRandomShape());
     }

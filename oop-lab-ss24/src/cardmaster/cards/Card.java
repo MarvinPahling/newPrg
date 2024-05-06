@@ -31,7 +31,6 @@ public abstract class Card {
 	public Card(Shape shape) {
 		this.shape = shape;
 	}
-
 	/**
 	 * Gibt die Form der Karte zurück.
 	 */
@@ -58,6 +57,6 @@ public abstract class Card {
 
 	@Override
 	public String toString() {
-		return this.getName() + " " + this.getShape().toString();
+		return this.getName() + " " + this.getShape().toString() + " " + System.identityHashCode(this);
 	}
 }

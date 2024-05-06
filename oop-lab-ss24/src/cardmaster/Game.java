@@ -46,10 +46,12 @@ public class Game {
 	 * @param maxRounds Anzahl der Runden. Muss mindestens {@code 1} sein.
 	 */
 	public Game(int maxRounds) {
+		System.out.println("Game constructor without factory is used");
 		this.cardFactory = new ChanceCardFactory();
 		init(maxRounds, this.cardFactory);
 	}
 	public Game(int maxRounds, CardFactory cardFactory){
+		System.out.println("Game constructor with factory is used");
 		this.cardFactory = cardFactory;
 		init(maxRounds, cardFactory);
 	}
@@ -249,6 +251,12 @@ public class Game {
 	 */
 	public Shape[] getTopShapes() {
 		return discardPiles.getTopShapes();
+	}
+
+	public void displayOffers() {
+		for (int i = 0; i < shop.getOfferCount(); i++) {
+			System.out.println(i+1 + ": " + shop.getDescription(i) + " for " + shop.getPrice(i));
+		}
 	}
 
 	public enum Mode {

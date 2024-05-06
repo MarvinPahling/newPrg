@@ -1,16 +1,13 @@
 package cardmaster;
 
-import cardmaster.cards.Card;
-import cardmaster.cards.ChanceCard;
-import cardmaster.cards.PaarCard;
-import cardmaster.cards.TripelCard;
+import cardmaster.cards.*;
 
 import java.util.Random;
 
 public class CardFactory {
     private static final CardFactory defaultFactory = new CardFactory();
 
-CardFactory(){
+public CardFactory(){
 
 }
 public static CardFactory getDefaultFactory(){
@@ -19,6 +16,7 @@ public static CardFactory getDefaultFactory(){
 
 
 public Card createRandom(){
+    System.out.println("createRandom is usd!");
     Random random = new Random();
     CardType[] types = CardType.values();
     CardType randomType = types[random.nextInt(types.length)];
@@ -27,7 +25,9 @@ public Card createRandom(){
 
 }
 public Card create(String name, Shape shape){
+    System.out.printf("%s tries to create %s with %s \n", this, name, shape);
     return CardType.valueOf(name.toUpperCase()).createCard(shape);
 }
+
 
 }
