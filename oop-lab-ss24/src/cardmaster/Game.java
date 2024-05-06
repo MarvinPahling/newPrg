@@ -34,7 +34,7 @@ public class Game {
 	public Shop shop;
 	private Mode mode;
 	private int roundsLeft;
-	private CardFactory cardFactory;
+	private final CardFactory cardFactory;
 
 
 
@@ -46,21 +46,12 @@ public class Game {
 	 * @param maxRounds Anzahl der Runden. Muss mindestens {@code 1} sein.
 	 */
 	public Game(int maxRounds) {
-		assert maxRounds >= 1 : "Invalid number of rounds";
-		this.inventory = new Inventory(10);
-		this.shop = new Shop(inventory);
-		this.mode = Mode.SHOPPING;
-		this.roundsLeft = maxRounds;
-		this.discardPiles = new DiscardPileContainer(3);
+		this.cardFactory = new ChanceCardFactory();
+		init(maxRounds, this.cardFactory);
 	}
 	public Game(int maxRounds, CardFactory cardFactory){
-		assert maxRounds >= 1 : "Invalid number of rounds";
-		this.inventory = new Inventory(10);
-		this.shop = new Shop(inventory, cardFactory);
-		this.mode = Mode.SHOPPING;
-		this.roundsLeft = maxRounds;
-		this.discardPiles = new DiscardPileContainer(3);
 		this.cardFactory = cardFactory;
+		init(maxRounds, cardFactory);
 	}
 
 	// Allgemein verwendbare Methoden.
@@ -185,12 +176,7 @@ public class Game {
 	private void changeToShopping() {
 		roundsLeft--;
 		this.mode = Mode.SHOPPING;
-		if(shop.isHoeppnefsShittyFirstSeriesGriefesEverything()){
-			this.shop = new Shop(inventory);
-		}
-		else {
-			this.shop = new Shop(inventory, cardFactory);
-		}
+		this.shop = new Shop(inventory, cardFactory);
 
 	}
 
@@ -245,6 +231,15 @@ public class Game {
 				changeToEnd();
 			}
 		}
+	}
+
+	private void init(int maxRounds, CardFactory cardFactory){
+		assert maxRounds >= 1 : "Invalid number of rounds";
+		this.inventory = new Inventory(10);
+		this.shop = new Shop(inventory, cardFactory);
+		this.mode = Mode.SHOPPING;
+		this.roundsLeft = maxRounds;
+		this.discardPiles = new DiscardPileContainer(3);
 	}
 
 	/**

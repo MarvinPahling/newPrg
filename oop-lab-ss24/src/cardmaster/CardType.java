@@ -5,19 +5,19 @@ import cardmaster.cards.*;
 
 public enum CardType {
 
-    CHANCE("CHANCE"){
+    CHANCE("Chance"){
         @Override
         public Card createCard(Shape shape) {
             return new ChanceCard(shape);
         }
     },
-    PAAR("PAAR") {
+    PAAR("Paar") {
         @Override
         public Card createCard(Shape shape) {
             return new PaarCard(shape);
         }
     },
-    TRIPEL("TRIPEL")
+    TRIPEL("Tripel")
     {
         @Override
         public Card createCard(Shape shape) {

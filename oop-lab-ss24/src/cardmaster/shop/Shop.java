@@ -13,25 +13,18 @@ import java.util.Random;
 
 public class Shop {
 
-    private AlgoArrayList<Offer> offers = new AlgoArrayList<>();
-    private int maxCards;
-    private Inventory inventory;
-    private CardFactory factory = CardFactory.getDefaultFactory();
-    private boolean hoeppnefsShittyFirstSeriesGriefesEverything;
+    private final AlgoArrayList<Offer> offers = new AlgoArrayList<>();
+    private final int maxCards;
+    private final Inventory inventory;
+    private final CardFactory factory;
+
 
     public Shop(Inventory inventory, CardFactory cardFactory){
+        this.factory = cardFactory;
         this.inventory = inventory;
         this.maxCards = inventory.getMaxShopCards();
-        hoeppnefsShittyFirstSeriesGriefesEverything = false;
         generateRandomOffers();
-        System.out.println(this.offers);
 
-    }
-    public Shop(Inventory inventory){
-        this.inventory = inventory;
-        this.maxCards = inventory.getMaxShopCards();
-        hoeppnefsShittyFirstSeriesGriefesEverything = true;
-        generateChanceOffers();
     }
 
     public void generateRandomOffers() {
@@ -39,24 +32,12 @@ public class Shop {
         int numberOfUpgrades = ShopUpgrade.values().length;
         int numberOfCards = maxCards;
         for (int i = 0; i < numberOfUpgrades; i++) {
-            offers.add(new Offer(ShopUpgrade.values()[i], prices[i], ItemType.UPGRADE));
+            offers.add(new Offer<ShopUpgrade>(ShopUpgrade.values()[i], prices[i], ItemType.UPGRADE));
         }
         for (int i = numberOfUpgrades; i < maxCards + numberOfUpgrades; i++) {
-            Offer offer = new Offer(factory.createRandom(), prices[i], ItemType.CARD);
-            System.out.println(offer);
+            Offer<Card> offer = new Offer<Card>(factory.createRandom(), prices[i], ItemType.CARD);
+            System.out.println(offer.getItem().getName());
             offers.add(offer);
-        }
-    }
-
-    private void generateChanceOffers() {
-        int[] prices = calculatePrices(inventory.getCredits());
-        int numberOfUpgrades = ShopUpgrade.values().length;
-        int numberOfCards = maxCards;
-        for (int i = 0; i < numberOfUpgrades; i++) {
-            offers.add(new Offer(ShopUpgrade.values()[i], prices[i], ItemType.UPGRADE));
-        }
-        for (int i = numberOfUpgrades; i < maxCards + numberOfUpgrades; i++) {
-            offers.add(new Offer((new ChanceCard(Shape.getRandomShape())), prices[i], ItemType.CARD));
         }
     }
 
@@ -118,7 +99,4 @@ public class Shop {
         //
     }
 
-    public boolean isHoeppnefsShittyFirstSeriesGriefesEverything() {
-        return hoeppnefsShittyFirstSeriesGriefesEverything;
-    }
 }
